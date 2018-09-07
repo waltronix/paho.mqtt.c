@@ -12,12 +12,14 @@ ENDIF ()
 IF (PAHO_WITH_SSL)
     SET(OPENSSL_SEARCH_PATH "" CACHE PATH "Directory containing OpenSSL libraries and includes")
 
-    IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-      SET(OPENSSL_SEARCH_PATH "/usr/local/opt/openssl")
-    ENDIF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    IF(OPENSSL_SEARCH_PATH STREQUAL "")
+        IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+        SET(OPENSSL_SEARCH_PATH "/usr/local/opt/openssl")
+        ENDIF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 
-    IF (WIN32)
-      SET(OPENSSL_SEARCH_PATH "C:/OpenSSL-Win64")
+        IF (WIN32)
+        SET(OPENSSL_SEARCH_PATH "C:/OpenSSL-Win64")
+        ENDIF ()
     ENDIF ()
 
     FIND_PATH(OPENSSL_INCLUDE_DIR openssl/ssl.h
