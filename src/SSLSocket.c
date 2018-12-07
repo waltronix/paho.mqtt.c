@@ -560,49 +560,126 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 		}
 	}
 
-	if (opts->keyStore)
-	{
-		if ((rc = SSL_CTX_use_certificate_chain_file(net->ctx, opts->keyStore)) != 1)
-		{
-			if (opts->struct_version >= 3)
-				SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
-			else
-				SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, NULL, NULL);
-			goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
+	if (opts->cert_no_file) {
+		BIO* contextBio = BIO_new(BIO_s_mem());
+		size_t length;
+		if (opts->keyStore) {
+			length = strlen(opts->keyStore);
+			BIO_write(contextBio, opts->keyStore, length);
+		}
+		
+		if (opts->trustStore) {
+			length = strlen(opts->trustStore);
+			BIO_write(contextBio, opts->trustStore, length);
 		}
 
-		if (opts->privateKey == NULL)
-			opts->privateKey = opts->keyStore;   /* the privateKey can be included in the keyStore */
-
+		if (opts->privateKey) {
+			length = strlen(opts->privateKey);
+			BIO_write(contextBio, opts->privateKey, length);
+		}
+	}
+	
+	if (opts->keyStore)
+	{
 		if (opts->privateKeyPassword != NULL)
 		{
 			SSL_CTX_set_default_passwd_cb(net->ctx, pem_passwd_cb);
 			SSL_CTX_set_default_passwd_cb_userdata(net->ctx, (void*)opts->privateKeyPassword);
 		}
 
-		/* support for ASN.1 == DER format? DER can contain only one certificate? */
-		rc = SSL_CTX_use_PrivateKey_file(net->ctx, opts->privateKey, SSL_FILETYPE_PEM);
-		if (opts->privateKey == opts->keyStore)
-			opts->privateKey = NULL;
-		if (rc != 1)
-		{
-			if (opts->struct_version >= 3)
-				SSLSocket_error("SSL_CTX_use_PrivateKey_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
-			else
-				SSLSocket_error("SSL_CTX_use_PrivateKey_file", NULL, net->socket, rc, NULL, NULL);
-			goto free_ctx;
-		}
+		if (opts->cert_no_file) {
+			X509* certX509 = PEM_read_bio_X509(contextBio, NULL, pem_passwd_cb, NULL);
+			if (!certX509) {
+    			if (opts->struct_version >= 3)
+					SSLSocket_error("PEM_read_bio_X509", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("PEM_read_bio_X509", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx;
+			}
+
+			if ((rc = SSL_CTX_use_certificate(net->ctx, certX509)) != 1)
+			{
+				if (opts->struct_version >= 3)
+					SSLSocket_error("SSL_CTX_use_certificate", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("SSL_CTX_use_certificate", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
+			}
+
+			RSA* rsaPrivateKey = PEM_read_bio_RSAPrivateKey(contextBio, NULL, pem_password_cb, NULL);
+			if (!rsaPrivateKey) {
+    			if (opts->struct_version >= 3)
+					SSLSocket_error("PEM_read_bio_RSAPrivateKey", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("PEM_read_bio_RSAPrivateKey", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx;
+			}
+
+			if ((rc = SSL_CTX_use_RSAPrivateKey(net->ctx, rsaPrivateKey)) != 1)
+			{
+				if (opts->struct_version >= 3)
+					SSLSocket_error("SSL_CTX_use_RSAPrivateKey", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("SSL_CTX_use_RSAPrivateKey", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
+			}
+
+		} else {
+
+			if ((rc = SSL_CTX_use_certificate_chain_file(net->ctx, opts->keyStore)) != 1)
+			{
+				if (opts->struct_version >= 3)
+					SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
+			}
+
+			if (opts->privateKey == NULL)
+				opts->privateKey = opts->keyStore;   /* the privateKey can be included in the keyStore */
+
+			/* support for ASN.1 == DER format? DER can contain only one certificate? */
+			rc = SSL_CTX_use_PrivateKey_file(net->ctx, opts->privateKey, SSL_FILETYPE_PEM);
+			if (opts->privateKey == opts->keyStore)
+				opts->privateKey = NULL;
+
+			}
+
+			if (rc != 1) {
+				if (opts->struct_version >= 3)
+					SSLSocket_error("SSL_CTX_use_PrivateKey_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("SSL_CTX_use_PrivateKey_file", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx;
+			}
 	}
+
+	
 
 	if (opts->trustStore)
 	{
-		if ((rc = SSL_CTX_load_verify_locations(net->ctx, opts->trustStore, NULL)) != 1)
-		{
-			if (opts->struct_version >= 3)
-				SSLSocket_error("SSL_CTX_load_verify_locations", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
-			else
-				SSLSocket_error("SSL_CTX_load_verify_locations", NULL, net->socket, rc, NULL, NULL);
-			goto free_ctx;
+		if (opts->cert_no_file) { 
+			X509* certX509;
+			while (certX509 = PEM_read_bio_X509(contextBio, NULL, pem_passwd_cb, NULL)) {
+				if ((rc = SSL_CTX_add_extra_chain_cert(net->ctx, certX509)) != 1)
+				{
+					if (opts->struct_version >= 3)
+						SSLSocket_error("SSL_CTX_add_extra_chain_cert", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+					else
+						SSLSocket_error("SSL_CTX_add_extra_chain_cert", NULL, net->socket, rc, NULL, NULL);
+					goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
+				}
+			}
+
+		} else {
+			if ((rc = SSL_CTX_load_verify_locations(net->ctx, opts->trustStore, NULL)) != 1)
+			{
+				if (opts->struct_version >= 3)
+					SSLSocket_error("SSL_CTX_load_verify_locations", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
+				else
+					SSLSocket_error("SSL_CTX_load_verify_locations", NULL, net->socket, rc, NULL, NULL);
+				goto free_ctx;
+			}
 		}
 	}
 	else if ((rc = SSL_CTX_set_default_verify_paths(net->ctx)) != 1)
@@ -632,6 +709,10 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 free_ctx:
 	SSL_CTX_free(net->ctx);
 	net->ctx = NULL;
+	if (opts->cert_no_file) { 
+		BIO_free(contextBio);
+		X509_free(certX509);
+	}
 
 exit:
 	FUNC_EXIT_RC(rc);
