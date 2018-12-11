@@ -106,7 +106,12 @@ INSTALL(FILES MQTTAsync.h MQTTClient.h MQTTClientPersistence.h MQTTProperties.h 
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 IF (PAHO_WITH_SSL)
+
+    MESSAGE(STATUS "OpenSSL even more before: ${OPENSSL_SEARCH_PATH}")
+
     SET(OPENSSL_SEARCH_PATH "" CACHE PATH "Directory containing OpenSSL libraries and includes")
+
+    MESSAGE(STATUS "OpenSSL searchpath before: ${OPENSSL_SEARCH_PATH}")
 
     IF(OPENSSL_SEARCH_PATH STREQUAL "")
         IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")

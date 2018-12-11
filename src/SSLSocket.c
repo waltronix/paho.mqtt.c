@@ -560,8 +560,9 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 		}
 	}
 
+    BIO* contextBio = NULL;
 	if (opts->cert_no_file) {
-		BIO* contextBio = BIO_new(BIO_s_mem());
+		contextBio = BIO_new(BIO_s_mem());
 		size_t length;
 		if (opts->keyStore) {
 			length = strlen(opts->keyStore);
@@ -606,7 +607,7 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 				goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
 			}
 
-			RSA* rsaPrivateKey = PEM_read_bio_RSAPrivateKey(contextBio, NULL, pem_password_cb, NULL);
+			RSA* rsaPrivateKey = PEM_read_bio_RSAPrivateKey(contextBio, NULL, pem_passwd_cb, NULL);
 			if (!rsaPrivateKey) {
     			if (opts->struct_version >= 3)
 					SSLSocket_error("PEM_read_bio_RSAPrivateKey", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
@@ -623,6 +624,22 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 					SSLSocket_error("SSL_CTX_use_RSAPrivateKey", NULL, net->socket, rc, NULL, NULL);
 				goto free_ctx; /*If we can't load the certificate (chain) file then loading the privatekey won't work either as it needs a matching cert already loaded */
 			}
+            // debug logging
+            X509 *cert;
+            cert = SSL_get_peer_certificate(NULL); /* get the server's certificate */
+            if (cert != NULL)
+            {
+                #define MAX_SIZE 1000
+                char line [MAX_SIZE + 1];
+                char * result;
+
+                Log(TRACE_MIN, 0, "Server certificates:");
+                result = X509_NAME_oneline(X509_get_subject_name(cert), line, MAX_SIZE);
+                Log(TRACE_MIN, 0, "Subject: %s", result);
+                result = X509_NAME_oneline(X509_get_issuer_name(cert), line, MAX_SIZE);
+                Log(TRACE_MIN, 0, "Issuer: %s", result);
+                X509_free(cert);     /* free the malloc'ed certificate copy */
+            }
 
 		} else {
 
@@ -681,6 +698,23 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 				goto free_ctx;
 			}
 		}
+
+        // debug logging
+        X509 *cert;
+        cert = SSL_get_peer_cert_chain(NULL); /* get the server's certificate */
+        if (cert != NULL)
+        {
+#define MAX_SIZE 1000
+            char line[MAX_SIZE + 1];
+            char * result;
+
+            Log(TRACE_MIN, 0, "Server certificates:");
+            result = X509_NAME_oneline(X509_get_subject_name(cert), line, MAX_SIZE);
+            Log(TRACE_MIN, 0, "Subject: %s", result);
+            result = X509_NAME_oneline(X509_get_issuer_name(cert), line, MAX_SIZE);
+            Log(TRACE_MIN, 0, "Issuer: %s", result);
+            X509_free(cert);     /* free the malloc'ed certificate copy */
+        }
 	}
 	else if ((rc = SSL_CTX_set_default_verify_paths(net->ctx)) != 1)
 	{
@@ -711,7 +745,7 @@ free_ctx:
 	net->ctx = NULL;
 	if (opts->cert_no_file) { 
 		BIO_free(contextBio);
-		X509_free(certX509);
+		//X509_free(certX509);
 	}
 
 exit:
