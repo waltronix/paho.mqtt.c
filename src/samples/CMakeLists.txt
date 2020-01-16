@@ -48,7 +48,7 @@ ADD_EXECUTABLE(MQTTClient_publish_async MQTTClient_publish_async.c)
 TARGET_LINK_LIBRARIES(MQTTAsync_subscribe paho-mqtt3a)
 TARGET_LINK_LIBRARIES(MQTTAsync_publish paho-mqtt3a)
 TARGET_LINK_LIBRARIES(MQTTClient_subscribe paho-mqtt3c)
-TARGET_LINK_LIBRARIES(MQTTClient_publish paho-mqtt3c)
+TARGET_LINK_LIBRARIES(MQTTClient_publish paho-mqtt3cs)
 TARGET_LINK_LIBRARIES(MQTTClient_publish_async paho-mqtt3c)
 
 INSTALL(TARGETS paho_c_sub
