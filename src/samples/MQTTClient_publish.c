@@ -19,7 +19,8 @@
 #include <string.h>
 #include "MQTTClient.h"
 
-#define ADDRESS     "tcp://localhost:1883"
+//#define ADDRESS     "ssl://mqtt.eclipse.org:8883"
+#define ADDRESS     "ssl://localhost:8883"
 #define CLIENTID    "ExampleClientPub"
 #define TOPIC       "MQTT Examples"
 #define PAYLOAD     "Hello World!"
@@ -38,6 +39,21 @@ int main(int argc, char* argv[])
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
+
+    MQTTClient_SSLOptions ssl_options = MQTTClient_SSLOptions_initializer;
+    ssl_options.CApath = "./certificate_authority.crt";
+    ssl_options.trustStore = "./certificate_authority.crt";
+
+    ssl_options.keyStore = "./mqtt_client.crt";
+    ssl_options.privateKey = "./mqtt_client.key";
+    ssl_options.privateKeyPassword = "secret";
+
+    //ssl_options.enableServerCertAuth = 0;
+    //ssl_options.verify = 0;  // post connection -> host name matches?
+
+
+    conn_opts.ssl = &ssl_options;
+
 
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {

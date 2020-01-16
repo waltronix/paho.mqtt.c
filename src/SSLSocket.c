@@ -592,7 +592,10 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 
 	if (opts->keyStore)
 	{
-		if ((rc = SSL_CTX_use_certificate_chain_file(net->ctx, opts->keyStore)) != 1)
+        BIO* bio_keystore = BIO_new_file(opts->keyStore, "r");
+        X509* x509_keystore = PEM_read_bio_X509(bio_keystore, NULL, 0, NULL);
+        if ((rc = SSL_CTX_use_certificate(net->ctx, x509_keystore)) != 1) 
+        //if ((rc = SSL_CTX_use_certificate_chain_file(net->ctx, opts->keyStore)) != 1)
 		{
 			if (opts->struct_version >= 3)
 				SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
@@ -610,8 +613,11 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 			SSL_CTX_set_default_passwd_cb_userdata(net->ctx, (void*)opts->privateKeyPassword);
 		}
 
-		/* support for ASN.1 == DER format? DER can contain only one certificate? */
-		rc = SSL_CTX_use_PrivateKey_file(net->ctx, opts->privateKey, SSL_FILETYPE_PEM);
+        BIO* bio_private_key = BIO_new_file(opts->privateKey, "r");
+        EVP_PKEY* x509_private_key = PEM_read_bio_PrivateKey(bio_private_key, 0, pem_passwd_cb, opts->privateKeyPassword);
+        rc = SSL_CTX_use_PrivateKey(net->ctx, x509_private_key);
+        /* support for ASN.1 == DER format? DER can contain only one certificate? */
+		//rc = SSL_CTX_use_PrivateKey_file(net->ctx, opts->privateKey, SSL_FILETYPE_PEM);
 		if (opts->privateKey == opts->keyStore)
 			opts->privateKey = NULL;
 		if (rc != 1)
