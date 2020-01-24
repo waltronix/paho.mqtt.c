@@ -525,14 +525,14 @@ static unsigned int call_ssl_psk_cb(SSL *ssl, const char *hint, char *identity, 
 
 	FUNC_ENTRY;
 
-	SSL_CTX *ctx = SSL_get_SSL_CTX(ssl);
-	MQTTClient_SSLOptions* opts = SSL_CTX_get_ex_data(ctx, tls_ex_index_ssl_opts);
+		SSL_CTX *ctx = SSL_get_SSL_CTX(ssl);
+		MQTTClient_SSLOptions* opts = SSL_CTX_get_ex_data(ctx, tls_ex_index_ssl_opts);
 
-	if (opts == NULL)
-		goto exit;
+		if (opts == NULL)
+			goto exit;
 
-	if (opts->ssl_psk_cb != NULL)
-		rc = opts->ssl_psk_cb(hint, identity, max_identity_len, psk, max_psk_len, opts->ssl_psk_context);
+		if (opts->ssl_psk_cb != NULL)
+			rc = opts->ssl_psk_cb(hint, identity, max_identity_len, psk, max_psk_len, opts->ssl_psk_context);
 exit:
 	FUNC_EXIT_RC(rc);
 	return rc;
@@ -590,7 +590,9 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 
 	if (opts->keyStore)
 	{
-		if ((rc = SSL_CTX_use_certificate_chain_file(net->ctx, opts->keyStore)) != 1)
+		BIO* bio_keystore = BIO_new_mem_buf(opts->keyStore, strlen(opts->keyStore));
+		X509* x509_keystore = PEM_read_bio_X509(bio_keystore, NULL, 0, NULL);
+		if ((rc = SSL_CTX_use_certificate(net->ctx, x509_keystore)) != 1) 
 		{
 			if (opts->struct_version >= 3)
 				SSLSocket_error("SSL_CTX_use_certificate_chain_file", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
@@ -608,8 +610,10 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 			SSL_CTX_set_default_passwd_cb_userdata(net->ctx, (void*)opts->privateKeyPassword);
 		}
 
+		BIO* bio_private_key = BIO_new_mem_buf(opts->privateKey, strlen(opts->privateKey));
 		/* support for ASN.1 == DER format? DER can contain only one certificate? */
-		rc = SSL_CTX_use_PrivateKey_file(net->ctx, opts->privateKey, SSL_FILETYPE_PEM);
+		EVP_PKEY* x509_private_key = PEM_read_bio_PrivateKey(bio_private_key, 0, pem_passwd_cb, opts->privateKeyPassword);
+		rc = SSL_CTX_use_PrivateKey(net->ctx, x509_private_key);
 		if (opts->privateKey == opts->keyStore)
 			opts->privateKey = NULL;
 		if (rc != 1)
@@ -624,7 +628,9 @@ int SSLSocket_createContext(networkHandles* net, MQTTClient_SSLOptions* opts)
 
 	if (opts->trustStore || opts->CApath)
 	{
-		if ((rc = SSL_CTX_load_verify_locations(net->ctx, opts->trustStore, opts->CApath)) != 1)
+		BIO* bio_truststore = BIO_new_mem_buf(opts->trustStore, strlen(opts->trustStore));
+		X509* x509_truststore = PEM_read_bio_X509(bio_truststore, NULL, 0, NULL);
+		if ((X509_STORE_add_cert(SSL_CTX_get_cert_store(net->ctx), x509_truststore)) != 1)
 		{
 			if (opts->struct_version >= 3)
 				SSLSocket_error("SSL_CTX_load_verify_locations", NULL, net->socket, rc, opts->ssl_error_cb, opts->ssl_error_context);
