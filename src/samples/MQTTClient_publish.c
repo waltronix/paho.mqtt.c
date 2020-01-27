@@ -29,25 +29,25 @@
 
 const char* ca_cert = \
 "-----BEGIN CERTIFICATE-----\n\
-MIIDZjCCAk4CCQCQ6ngvfjINsjANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJE\n\
+MIIDZjCCAk4CCQC21WK659buzzANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJE\n\
 RTESMBAGA1UECAwJRnJhbmtvbmlhMRIwEAYDVQQHDAlOdXJlbWJlcmcxHTAbBgNV\n\
 BAoMFFRlYW0gU2Vuc29ycyAmIFByb2JlMR8wHQYDVQQDDBZtb21vX2ludGVncmF0\n\
-aW9uX3Rlc3RzMB4XDTIwMDExNjE1MDY1NFoXDTIwMDIxNTE1MDY1NFowdTELMAkG\n\
+aW9uX3Rlc3RzMB4XDTE5MDQwMzEyMzUwNloXDTI5MDMzMTEyMzUwNlowdTELMAkG\n\
 A1UEBhMCREUxEjAQBgNVBAgMCUZyYW5rb25pYTESMBAGA1UEBwwJTnVyZW1iZXJn\n\
 MR0wGwYDVQQKDBRUZWFtIFNlbnNvcnMgJiBQcm9iZTEfMB0GA1UEAwwWbW9tb19p\n\
 bnRlZ3JhdGlvbl90ZXN0czCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\n\
-ANeS84+PBVU8MpLMDbzDizhFT/LMfNK1zr0GZ1DRYmin3ZyrWb+eMBehWOcO7pEi\n\
-5d29JYcPzZFRicDzY79loKSgBTCSqoSGzpwM+btGg6a4Mj1n3o0L0oWkS917tjss\n\
-YnwclWADh4zJcnZBme2c83aXbnpjSxvg0cEWaVsslJmDZDkg9l0Fg2q4O3xoBANI\n\
-QDcox1CZlqFSV3lZyOcuVul8MT5KNW2/SUztOhhEBd+gRBQ0UiqDqqE6RkBEBPm0\n\
-x762hHw1UcDuWd7/WAq4iX2oHILUQAouRQiVuQedH5pU0gf/OJNb1W0FiPzzC0vp\n\
-I7+DJ5/GNHPHG/tEXEJn4cUCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAh1fBYMKU\n\
-uTJpMNkxCxw2d7IZ8NczdLEZFkil32L3Ko+paJ7l/0FgjVnrrlExXDi5fgNiSseM\n\
-bLiZJ+SvFWzE7N/J6IGt1U+NlqWoYuWHEQsVWjapMOVkO5xlOd/NbUh7iB4KmffZ\n\
-u8zGsilgUtFAzSFW2qcuCbd80hEu8ZCHAsBtyUHvYelx9btVIJzKEAixvsWy9x99\n\
-rKCRZqRnJ7f9xAsSvuYXbxNe17jpJ7qtFUNKKw7I7a6nXdpMkI6iohL61PESnIDl\n\
-xIEkA6gO1NoGk5tqLly5XyiB5wgao9s1qoI7NiV43e4Vy5c+Fl9Stx8twaYPVToP\n\
-cZjgeCbMStzIwQ==\n\
+ANfQd3pmcBLI6f/RiecL+C05CC4NZoC8nfse/0EirYAg4pt3N+dJjPXzYpM4CwAz\n\
+fmU8irYOruQmokV4/XDBqOXpevDsXsta1RjknXfukyPyx6TE+DmEaqCf72HG1vXn\n\
+Z2RsU5kEcvf3phisvFtbKNtEwLN2HqQjkE0Rg9QKwiMk1gSx32cxx6SioQg/q6Xb\n\
+j+r8eaVhUiCIkFJrPQwPwq88Cr7anXpkwJUxQhv9dIAjnC1tKB5CftrB3xosieNa\n\
+uiHxW8Q94GTZ4MuTO8Vj3R1shekvz1bRAq6ZDdj7SD3PD+IOpWIkMdAYz4ABoYcM\n\
+jSxy9af0G0rYbH4j1+6noy0CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAvkqQwkhk\n\
+F53fSio8vN2zzo+U/qQGgJrc6OpgrFjasg4ZxptU2G3OWPmB1tAhz7f9enGzJ9Fp\n\
+m9gseH6niTzZ0Oqo4FGqV8y5RCDvgfoY2qL8rQo7vdaS2bqg8fyV6znvAsu1MQFl\n\
+6UMv2EmtpljCdJhsHT5SZnM/Zx+7tLMzCtMgjRTapTyRyhAt1+4tpQv1JWmnCChv\n\
+0+6gi/4B+kO6vowtNPd0DoHnccm8eP+FdHaI5ZMrDFs2KF/G4t2mqdAXbRqQyJh6\n\
+eu1zEX/w3OzxQG2N9nXbbR/tRwV6a1lDFFYsZIxvXfzdrNCq3yzoRTGR0G6QEQ37\n\
+pvnXVA+1PJ1GKg==\n\
 -----END CERTIFICATE-----\n\
 ";
 
@@ -55,35 +55,35 @@ const char* mqtt_client_crt = \
 "Certificate:\n\
     Data:\n\
         Version: 3 (0x2)\n\
-        Serial Number: 2 (0x2)\n\
+        Serial Number: 4 (0x4)\n\
     Signature Algorithm: sha1WithRSAEncryption\n\
         Issuer: C=DE, ST=Frankonia, L=Nuremberg, O=Team Sensors & Probe, CN=momo_integration_tests\n\
         Validity\n\
-            Not Before: Jan 16 15:06:56 2020 GMT\n\
-            Not After : Jan 13 15:06:56 2030 GMT\n\
-        Subject: C=DE, ST=Frankonia, O=Team Sensors & Probe, CN=mqtt_client\n\
+            Not Before: Apr  3 15:24:24 2019 GMT\n\
+            Not After : Mar 31 15:24:24 2029 GMT\n\
+        Subject: C=DE, ST=Frankonia, O=Team Sensors & Probe, CN=momo_integration_tests\n\
         Subject Public Key Info:\n\
             Public Key Algorithm: rsaEncryption\n\
                 Public-Key: (2048 bit)\n\
                 Modulus:\n\
-                    00:ef:c0:a7:4a:9b:8e:17:31:96:ed:c1:3f:9e:df:\n\
-                    09:27:16:66:6b:78:42:8c:bc:d0:c6:bf:27:f2:af:\n\
-                    35:8b:4a:0e:bd:26:cf:76:1d:6a:63:8e:5e:ad:a9:\n\
-                    f9:f8:92:02:36:fb:57:8d:b6:95:b1:e5:d3:55:ce:\n\
-                    22:b0:6d:62:73:07:3f:ec:c8:46:fb:e1:b4:42:a4:\n\
-                    f2:68:35:3f:22:67:5c:29:53:59:5c:b7:4a:b9:8c:\n\
-                    e6:0c:bf:73:1c:b6:75:ea:a5:a8:31:14:ae:24:15:\n\
-                    85:61:bc:44:1b:90:94:72:20:23:c1:b6:db:4c:17:\n\
-                    e6:c7:2f:8f:52:bb:b0:69:66:08:02:56:37:1d:01:\n\
-                    aa:bf:66:da:d5:81:90:ed:da:bf:89:68:6e:87:eb:\n\
-                    61:19:ec:11:40:05:0b:2c:7e:d1:c7:c0:84:19:ca:\n\
-                    c0:b6:3c:5b:ba:48:97:40:c3:cf:17:f6:18:b5:28:\n\
-                    a7:cd:29:e6:39:f6:a3:bd:aa:96:49:b0:a0:19:ae:\n\
-                    fc:fa:cd:02:24:57:8b:10:9b:d4:61:0a:6f:98:08:\n\
-                    79:a6:1e:48:53:26:fd:da:8e:cd:1a:f7:79:3b:4d:\n\
-                    76:f9:ae:38:8d:92:2a:0a:91:af:3b:9d:70:1a:f6:\n\
-                    a4:0b:ad:73:9a:bc:21:1b:d8:0a:3f:e4:6b:ed:ce:\n\
-                    28:59\n\
+                    00:b6:2f:4f:f8:ac:dc:ee:9a:88:10:f4:69:57:47:\n\
+                    19:e8:e6:d4:c8:e7:0c:64:04:de:78:12:9f:10:ba:\n\
+                    76:bb:5c:eb:cc:9e:82:5f:37:08:f6:7f:fe:9b:41:\n\
+                    f4:49:f5:4f:fe:d2:a5:70:8c:c1:ec:af:77:6f:d3:\n\
+                    4c:8b:b6:42:a3:94:43:d1:b8:06:07:79:06:8b:f8:\n\
+                    12:08:63:be:f0:2a:48:71:d2:8a:82:a7:27:9b:42:\n\
+                    c8:5c:a9:a7:d4:6b:ce:50:95:c6:00:bb:18:89:5a:\n\
+                    d0:0a:20:73:99:f9:e9:9f:a4:51:36:ee:72:35:74:\n\
+                    1e:db:21:9a:4d:5f:41:1c:33:a2:8c:b1:fd:c3:c9:\n\
+                    7a:d5:f0:d1:62:d4:a4:cc:f1:d3:aa:d1:f5:09:35:\n\
+                    a9:d8:ba:28:23:2f:5d:82:fc:a0:21:2b:4e:51:0a:\n\
+                    54:f7:6f:4f:c5:6b:61:d0:44:dd:1f:b9:6f:37:e7:\n\
+                    2c:8a:0d:f4:d3:d2:88:2c:dd:a4:e7:0b:0f:e5:19:\n\
+                    45:69:ef:6b:f0:2c:26:c5:79:2c:1f:a1:ed:d0:d3:\n\
+                    94:14:30:13:e9:2c:ee:4c:87:3b:89:03:3e:fa:ce:\n\
+                    1b:7b:10:23:d8:31:4f:6a:4c:75:5d:4c:a7:26:a7:\n\
+                    ee:13:18:fc:4c:b2:ca:5f:46:a9:c1:5a:f3:d9:26:\n\
+                    62:cf\n\
                 Exponent: 65537 (0x10001)\n\
         X509v3 extensions:\n\
             X509v3 Basic Constraints: \n\
@@ -91,77 +91,78 @@ const char* mqtt_client_crt = \
             X509v3 Subject Alternative Name: \n\
                 DNS:localhost, DNS:mosquitto_certificates, DNS:hivemq_certificates, IP Address:127.0.0.1\n\
             X509v3 Subject Key Identifier: \n\
-                CC:D8:14:21:1D:14:C1:10:6C:29:18:37:3A:7D:2E:AC:7F:C5:17:4F\n\
+                E2:60:8B:FA:14:69:B8:5F:5A:A0:CC:FA:4F:2A:91:3E:1F:4B:9B:30\n\
     Signature Algorithm: sha1WithRSAEncryption\n\
-         77:00:08:a6:09:d0:81:be:64:b7:46:2d:60:29:11:25:08:ee:\n\
-         d4:8b:3f:9c:79:42:d2:32:b0:0a:99:8c:a1:45:85:b1:3d:eb:\n\
-         83:cf:19:f8:70:75:97:89:b6:36:cd:ac:54:20:e7:c8:32:a4:\n\
-         76:27:76:c8:e9:2f:3f:99:30:ae:9e:44:61:e6:e1:8d:88:6c:\n\
-         38:f2:ef:4c:39:e3:3d:69:a8:f0:5a:a8:26:a9:d3:ef:69:55:\n\
-         63:89:0f:25:a3:7d:32:dc:fb:bd:f7:3f:74:c4:ee:6d:1a:d4:\n\
-         38:68:50:dd:9b:c8:1a:c4:bd:d8:1e:e0:20:5d:7f:6e:05:93:\n\
-         79:de:1f:20:75:3f:9c:20:3f:ca:da:f4:8d:f3:11:8d:b4:a5:\n\
-         b0:f1:5a:58:85:e4:1a:4f:9a:65:9f:16:94:58:8f:22:55:32:\n\
-         b6:51:83:a3:d7:c7:e6:0d:b4:1a:cc:9f:6d:50:aa:87:0f:ef:\n\
-         93:14:93:e3:16:a4:47:98:db:79:9e:c8:78:d4:04:03:30:51:\n\
-         ac:e5:fd:0e:a6:b9:04:5e:11:31:16:56:e1:27:e9:c3:f8:c7:\n\
-         96:fa:27:65:4e:e7:e8:2d:6e:ab:fa:b4:93:ac:02:05:c1:16:\n\
-         7c:b7:2f:7e:44:52:48:80:b6:5e:7d:ce:82:4f:23:38:51:e1:\n\
-         21:12:e2:45\n\
+         3b:2d:46:d6:29:f7:60:87:92:be:f2:56:13:af:02:ee:77:34:\n\
+         d3:a8:d2:34:f8:99:0e:24:d7:02:aa:a9:82:50:0d:47:02:df:\n\
+         5e:6f:f3:a5:c3:8a:45:d3:a1:fd:1d:64:c4:47:12:01:00:0e:\n\
+         1e:24:eb:60:95:af:32:30:f5:a6:9c:d3:a2:a8:51:66:74:49:\n\
+         21:31:1b:db:ec:aa:2b:72:51:48:cd:39:ce:0c:cf:cc:52:5d:\n\
+         4c:e1:47:ba:49:94:9e:40:31:40:3b:5b:35:f1:aa:17:52:29:\n\
+         2c:16:f2:d0:25:c7:ce:b6:6a:2b:22:9f:d6:12:e9:46:a7:e2:\n\
+         0d:5b:4a:70:e3:15:11:8f:ea:d3:75:01:9c:36:6b:cb:19:6a:\n\
+         5f:eb:e5:69:3d:95:16:a1:11:37:1b:14:06:fc:10:6d:74:32:\n\
+         04:cd:39:44:1d:cb:6c:4a:b8:ca:83:33:fd:82:55:4c:0c:51:\n\
+         5e:23:9e:c9:b0:0d:64:82:39:eb:93:0b:ae:b2:17:c3:fa:48:\n\
+         ad:62:12:22:a9:db:81:48:dd:57:dc:d1:ec:1f:ff:31:54:37:\n\
+         04:b1:aa:39:2d:8e:65:9c:a4:b9:a0:09:21:cf:cb:e9:88:25:\n\
+         46:6a:9b:89:65:f2:3e:07:b1:d6:93:be:fc:68:20:31:1b:a4:\n\
+         2e:c6:3f:b1\n\
 -----BEGIN CERTIFICATE-----\n\
-MIIDuzCCAqOgAwIBAgIBAjANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJERTES\n\
+MIIDxjCCAq6gAwIBAgIBBDANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJERTES\n\
 MBAGA1UECAwJRnJhbmtvbmlhMRIwEAYDVQQHDAlOdXJlbWJlcmcxHTAbBgNVBAoM\n\
 FFRlYW0gU2Vuc29ycyAmIFByb2JlMR8wHQYDVQQDDBZtb21vX2ludGVncmF0aW9u\n\
-X3Rlc3RzMB4XDTIwMDExNjE1MDY1NloXDTMwMDExMzE1MDY1NlowVjELMAkGA1UE\n\
+X3Rlc3RzMB4XDTE5MDQwMzE1MjQyNFoXDTI5MDMzMTE1MjQyNFowYTELMAkGA1UE\n\
 BhMCREUxEjAQBgNVBAgMCUZyYW5rb25pYTEdMBsGA1UECgwUVGVhbSBTZW5zb3Jz\n\
-ICYgUHJvYmUxFDASBgNVBAMMC21xdHRfY2xpZW50MIIBIjANBgkqhkiG9w0BAQEF\n\
-AAOCAQ8AMIIBCgKCAQEA78CnSpuOFzGW7cE/nt8JJxZma3hCjLzQxr8n8q81i0oO\n\
-vSbPdh1qY45eran5+JICNvtXjbaVseXTVc4isG1icwc/7MhG++G0QqTyaDU/Imdc\n\
-KVNZXLdKuYzmDL9zHLZ16qWoMRSuJBWFYbxEG5CUciAjwbbbTBfmxy+PUruwaWYI\n\
-AlY3HQGqv2ba1YGQ7dq/iWhuh+thGewRQAULLH7Rx8CEGcrAtjxbukiXQMPPF/YY\n\
-tSinzSnmOfajvaqWSbCgGa78+s0CJFeLEJvUYQpvmAh5ph5IUyb92o7NGvd5O012\n\
-+a44jZIqCpGvO51wGvakC61zmrwhG9gKP+Rr7c4oWQIDAQABo3UwczAJBgNVHRME\n\
-AjAAMEcGA1UdEQRAMD6CCWxvY2FsaG9zdIIWbW9zcXVpdHRvX2NlcnRpZmljYXRl\n\
-c4ITaGl2ZW1xX2NlcnRpZmljYXRlc4cEfwAAATAdBgNVHQ4EFgQUzNgUIR0UwRBs\n\
-KRg3On0urH/FF08wDQYJKoZIhvcNAQEFBQADggEBAHcACKYJ0IG+ZLdGLWApESUI\n\
-7tSLP5x5QtIysAqZjKFFhbE964PPGfhwdZeJtjbNrFQg58gypHYndsjpLz+ZMK6e\n\
-RGHm4Y2IbDjy70w54z1pqPBaqCap0+9pVWOJDyWjfTLc+733P3TE7m0a1DhoUN2b\n\
-yBrEvdge4CBdf24Fk3neHyB1P5wgP8ra9I3zEY20pbDxWliF5BpPmmWfFpRYjyJV\n\
-MrZRg6PXx+YNtBrMn21QqocP75MUk+MWpEeY23meyHjUBAMwUazl/Q6muQReETEW\n\
-VuEn6cP4x5b6J2VO5+gtbqv6tJOsAgXBFny3L35EUkiAtl59zoJPIzhR4SES4kU=\n\
+ICYgUHJvYmUxHzAdBgNVBAMMFm1vbW9faW50ZWdyYXRpb25fdGVzdHMwggEiMA0G\n\
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2L0/4rNzumogQ9GlXRxno5tTI5wxk\n\
+BN54Ep8Quna7XOvMnoJfNwj2f/6bQfRJ9U/+0qVwjMHsr3dv00yLtkKjlEPRuAYH\n\
+eQaL+BIIY77wKkhx0oqCpyebQshcqafUa85QlcYAuxiJWtAKIHOZ+emfpFE27nI1\n\
+dB7bIZpNX0EcM6KMsf3DyXrV8NFi1KTM8dOq0fUJNanYuigjL12C/KAhK05RClT3\n\
+b0/Fa2HQRN0fuW835yyKDfTT0ogs3aTnCw/lGUVp72vwLCbFeSwfoe3Q05QUMBPp\n\
+LO5MhzuJAz76zht7ECPYMU9qTHVdTKcmp+4TGPxMsspfRqnBWvPZJmLPAgMBAAGj\n\
+dTBzMAkGA1UdEwQCMAAwRwYDVR0RBEAwPoIJbG9jYWxob3N0ghZtb3NxdWl0dG9f\n\
+Y2VydGlmaWNhdGVzghNoaXZlbXFfY2VydGlmaWNhdGVzhwR/AAABMB0GA1UdDgQW\n\
+BBTiYIv6FGm4X1qgzPpPKpE+H0ubMDANBgkqhkiG9w0BAQUFAAOCAQEAOy1G1in3\n\
+YIeSvvJWE68C7nc006jSNPiZDiTXAqqpglANRwLfXm/zpcOKRdOh/R1kxEcSAQAO\n\
+HiTrYJWvMjD1ppzToqhRZnRJITEb2+yqK3JRSM05zgzPzFJdTOFHukmUnkAxQDtb\n\
+NfGqF1IpLBby0CXHzrZqKyKf1hLpRqfiDVtKcOMVEY/q03UBnDZryxlqX+vlaT2V\n\
+FqERNxsUBvwQbXQyBM05RB3LbEq4yoMz/YJVTAxRXiOeybANZII565MLrrIXw/pI\n\
+rWISIqnbgUjdV9zR7B//MVQ3BLGqOS2OZZykuaAJIc/L6YglRmqbiWXyPgex1pO+\n\
+/GggMRukLsY/sQ==\n\
 -----END CERTIFICATE-----\n\
 ";
 
 const char* mqtt_client_key = \
 "-----BEGIN RSA PRIVATE KEY-----\n\
 Proc-Type: 4,ENCRYPTED\n\
-DEK-Info: DES-EDE3-CBC,C63B42FAAF34EDB8\n\
+DEK-Info: DES-EDE3-CBC,3B12A9718003322A\n\
 \n\
-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\n\
+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\n\
 -----END RSA PRIVATE KEY-----\n\
 ";
 
@@ -179,7 +180,7 @@ int main(int argc, char* argv[]) {
 
     MQTTClient_SSLOptions ssl_options = MQTTClient_SSLOptions_initializer;
     //ssl_options.trustStore = "./certificate_authority.crt";
-    ssl_options.trustStore = ca_cert;
+    //ssl_options.trustStore = ca_cert;
 
     //ssl_options.keyStore = "./mqtt_client.crt";
     ssl_options.keyStore = mqtt_client_crt;
@@ -187,8 +188,8 @@ int main(int argc, char* argv[]) {
     ssl_options.privateKey = mqtt_client_key;
     ssl_options.privateKeyPassword = "secret";
 
-    ssl_options.enableServerCertAuth = 1;
-    ssl_options.verify = 1;  // post connection -> host name matches?
+    ssl_options.enableServerCertAuth = 0;
+    ssl_options.verify = 0;  // post connection -> host name matches?
 
     conn_opts.ssl = &ssl_options;
 
